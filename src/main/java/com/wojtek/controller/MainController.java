@@ -3,11 +3,10 @@ package com.wojtek.controller;
 import com.wojtek.component.Calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
@@ -24,14 +23,25 @@ public class MainController {
         return "index";
     }
 
+//    @PostMapping("/calc")
+//    public String calculate(@RequestParam(defaultValue = "0") int valueA,
+//                            @RequestParam(defaultValue = "0") int valueB,
+//                            @RequestParam String operator,
+//                            HttpServletRequest request) {
+//
+//        int result = calculator.calcResult(valueA, valueB, operator);
+//        request.setAttribute("result", result);
+//        return "result";
+//    }
+
     @PostMapping("/calc")
     public String calculate(@RequestParam(defaultValue = "0") int valueA,
                             @RequestParam(defaultValue = "0") int valueB,
                             @RequestParam String operator,
-                            HttpServletRequest request) {
+                            Model model) {
 
         int result = calculator.calcResult(valueA, valueB, operator);
-        request.setAttribute("result", result);
+        model.addAttribute("result", result);
         return "result";
     }
 
